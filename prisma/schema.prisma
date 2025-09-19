@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Burial {
+  id            String   @id @default(cuid())
+  firstName     String?
+  lastName      String?
+  middleName    String?
+  birthDate     String?
+  deathDate     String?
+  latitudeText  String?
+  longitudeText String?
+  locationText  String?
+  rawText       String?
+  gravePolygon  String?
+  imagePath     String
+  createdAt     DateTime @default(now())
+
+  @@index([lastName, firstName, middleName], name: "idx_name_composite")
+  @@index([locationText], name: "idx_location")
+}
